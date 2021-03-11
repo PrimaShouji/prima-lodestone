@@ -6,27 +6,27 @@ import (
 	"strconv"
 
 	fiber "github.com/gofiber/fiber/v2"
-	"github.com/karashiiro/godestone"
-	"github.com/karashiiro/godestone/models"
-	"github.com/karashiiro/godestone/search"
+	"github.com/karashiiro/bingode"
+	godestone "github.com/xivapi/godestone/v2"
 )
 
 func main() {
 	port := flag.Uint("port", 7652, "server binding port")
 	flag.Parse()
 
-	scraper := godestone.NewScraper(godestone.EN)
+	bin := bingode.New()
+	scraper := godestone.NewScraper(bin, godestone.EN)
 
 	app := fiber.New()
 	character := app.Group("/character")
 
 	character.Get("/search/:world/:name", func(ctx *fiber.Ctx) error {
-		results := scraper.SearchCharacters(search.CharacterOptions{
+		results := scraper.SearchCharacters(godestone.CharacterOptions{
 			Name:  ctx.Params("name"),
 			World: ctx.Params("world"),
 		})
 
-		arr := make([]models.CharacterSearchResult, 0)
+		arr := make([]godestone.CharacterSearchResult, 0)
 		for c := range results {
 			if c.Error != nil {
 				return ctx.SendStatus(500)
@@ -70,18 +70,12 @@ func main() {
 			return ctx.SendStatus(404)
 		}
 
-		results := scraper.FetchCharacterAchievements(uint32(id))
-
-		arr := make([]models.AchievementInfo, 0)
-		for a := range results {
-			if a.Error != nil || a.Private {
-				return ctx.SendStatus(404)
-			}
-
-			arr = append(arr, *a)
+		a, aai, err := scraper.FetchCharacterAchievements(uint32(id))
+		if aai.Private {
+			return ctx.SendStatus(404)
 		}
 
-		rawData, err := json.Marshal(arr)
+		rawData, err := json.Marshal(a)
 		if err != nil {
 			return ctx.SendStatus(500)
 		}
