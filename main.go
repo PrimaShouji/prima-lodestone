@@ -72,7 +72,7 @@ func main() {
 
 		a, aai, err := scraper.FetchCharacterAchievements(uint32(id))
 		if aai.Private {
-			return ctx.SendStatus(404)
+			return ctx.SendStatus(403)
 		}
 
 		rawData, err := json.Marshal(a)
