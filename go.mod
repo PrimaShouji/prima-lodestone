@@ -7,7 +7,7 @@ require (
 	github.com/antchfx/xpath v1.1.11 // indirect
 	github.com/gofiber/fiber/v2 v2.5.0
 	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/karashiiro/bingode v1.2.0
+	github.com/karashiiro/bingode v1.2.1
 	github.com/xivapi/godestone/v2 v2.1.0
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/text v0.3.5 // indirect
