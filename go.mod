@@ -11,7 +11,7 @@ require (
 	github.com/karashiiro/bingode v1.2.1
 	github.com/temoto/robotstxt v1.1.2 // indirect
 	github.com/valyala/fasthttp v1.18.0 // indirect
-	github.com/xivapi/godestone/v2 v2.1.3
+	github.com/xivapi/godestone/v2 v2.1.4
 	golang.org/x/net v0.0.0-20211109214657-ef0fda0de508 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
