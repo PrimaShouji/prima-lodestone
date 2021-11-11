@@ -71,6 +71,10 @@ func main() {
 		}
 
 		a, aai, err := scraper.FetchCharacterAchievements(uint32(id))
+		if err != nil {
+			return ctx.SendStatus(500)
+		}
+
 		if aai.Private {
 			return ctx.SendStatus(403)
 		}
